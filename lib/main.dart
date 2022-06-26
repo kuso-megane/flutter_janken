@@ -1,5 +1,6 @@
-import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'janken.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,26 +41,20 @@ class JankenPage extends StatefulWidget {
 
 class _JankenPageState extends State<JankenPage> {
 
-  String myHand = 'グー';
-  String computerHand = 'グー';
-  String result = '引き分け';
+  JankenHand myHand = JankenHand(id: 0, name: 'block');
+  JankenHand computerHand = JankenHand(id: 0, name: 'block');
+  String result = 'あいこ';
+
   
 
-  void updateHands(String selectedHand) {
+  void updateHands(JankenHand selectedHand) {
     setState(() {
       myHand = selectedHand;
-      computerHand = generateComputerHand();
+      computerHand = JankenController().generateRandomHand();
     });
   }
 
-  String generateComputerHand() {
-    // nextInt() の括弧の中に与えた数字より1小さい値を最高値としたランダムな数を生成する。
-    // 3 であれば 0, 1, 2 がランダムで生成される。
-    int randomInt = Random().nextInt(3);
-    List<String> hands = ['グー', 'チョキ', 'パー'];
-
-    return hands[randomInt];
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +67,14 @@ class _JankenPageState extends State<JankenPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '相手の手は${computerHand}です。',
+                '相手の手は${computerHand.name}です。',
                 style: TextStyle(
                   fontSize: 32
                 ),
               ),
               SizedBox(height: 48),
               Text(
-                'あなたの手は${myHand}です。',
+                'あなたの手は${myHand.name}です。',
                 style: TextStyle(
                   fontSize: 32
                 ),
@@ -90,16 +85,16 @@ class _JankenPageState extends State<JankenPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: (){updateHands('グー');},
-                      child: Text('グー'),
+                      onPressed: (){updateHands(JankenHands.block);},
+                      child: Text(JankenHands.block.name),
                     ),
                     ElevatedButton(
-                      onPressed: (){updateHands('チョキ');},
-                      child: Text('チョキ'),
+                      onPressed: (){updateHands(JankenHands.scissors);},
+                      child: Text(JankenHands.scissors.name),
                     ),
                     ElevatedButton(
-                      onPressed: (){updateHands('パー');},
-                      child: Text('パー'),
+                      onPressed: (){updateHands(JankenHands.paper);},
+                      child: Text(JankenHands.paper.name),
                     ),
                   ],
                 ),
