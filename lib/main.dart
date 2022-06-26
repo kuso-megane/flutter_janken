@@ -45,22 +45,35 @@ class _JankenPageState extends State<JankenPage> {
           title: Text('じゃんけん'),
         ),
         body:  Center(
-          child: Row(
-              children: [
-                ElevatedButton(
-                  onPressed: (){},
-                  child: Text('グー'),
+          child: Column(
+            children: [
+              Text(
+                '出した手',
+                style: TextStyle(
+                  fontSize: 32
                 ),
-                ElevatedButton(
-                  onPressed: (){},
-                  child: Text('チョキ'),
+
+              ),
+              SizedBox(height: 16,),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: (){},
+                      child: Text('グー'),
+                    ),
+                    ElevatedButton(
+                      onPressed: (){},
+                      child: Text('チョキ'),
+                    ),
+                    ElevatedButton(
+                      onPressed: (){},
+                      child: Text('パー'),
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: (){},
-                  child: Text('パー'),
-                ),
-              ],
-            ),
+            ],
+          ),
         ),
       );
   }
