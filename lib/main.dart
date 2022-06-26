@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -38,6 +39,28 @@ class JankenPage extends StatefulWidget {
 }
 
 class _JankenPageState extends State<JankenPage> {
+
+  String myHand = 'グー';
+  String computerHand = 'グー';
+  String result = '引き分け';
+  
+
+  void updateHands(String selectedHand) {
+    setState(() {
+      myHand = selectedHand;
+      computerHand = generateComputerHand();
+    });
+  }
+
+  String generateComputerHand() {
+    // nextInt() の括弧の中に与えた数字より1小さい値を最高値としたランダムな数を生成する。
+    // 3 であれば 0, 1, 2 がランダムで生成される。
+    int randomInt = Random().nextInt(3);
+    List<String> hands = ['グー', 'チョキ', 'パー'];
+
+    return hands[randomInt];
+  }
+
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -46,9 +69,17 @@ class _JankenPageState extends State<JankenPage> {
         ),
         body:  Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '出した手',
+                '相手の手は${computerHand}です。',
+                style: TextStyle(
+                  fontSize: 32
+                ),
+              ),
+              SizedBox(height: 48),
+              Text(
+                'あなたの手は${myHand}です。',
                 style: TextStyle(
                   fontSize: 32
                 ),
@@ -59,15 +90,15 @@ class _JankenPageState extends State<JankenPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){updateHands('グー');},
                       child: Text('グー'),
                     ),
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){updateHands('チョキ');},
                       child: Text('チョキ'),
                     ),
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){updateHands('パー');},
                       child: Text('パー'),
                     ),
                   ],
